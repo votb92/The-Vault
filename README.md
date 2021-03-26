@@ -12,7 +12,7 @@ Date published: 03/26/2021
 Hosted at: https://github.com/votb92/The-Vault 
 
 
-Source codes can be found in TheVault.zip
+Source codes can be found in TheVault directory or TheVault.zip
 
 
 # DISCLAIMER:
