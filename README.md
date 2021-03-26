@@ -1,9 +1,17 @@
 # The-Vault
 
 Author: Thinh B. Vo
+
+
 Version: 1.0
+
+
 Date published: 03/26/2021
+
+
 Hosted at: https://github.com/votb92/The-Vault
+
+
 # DISCLAIMER:
  *This program is free software. It comes without any warranty, to the extent permitted by applicable law. You can redistribute it and/or modify it. The author will not be responsible for any damage cause by using this software.*
 
