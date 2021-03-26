@@ -21,7 +21,7 @@ step 2: Create a database and name it "thevault"
 
 step 3: Paste the following code into SQL tab and click go:
 
-********************start of code********************don't copy this line ******************************
+------------------------------start of code-----------------------------don't copy this line-------------------------------
 
  
 CREATE TABLE `thevault`.`accounts` ( `account_id` INT(4) NOT NULL AUTO_INCREMENT ,
@@ -31,7 +31,7 @@ CREATE TABLE `thevault`.`accounts` ( `account_id` INT(4) NOT NULL AUTO_INCREMENT
 				
 ALTER TABLE `thevault`.`accounts` ADD UNIQUE KEY (domain, username);
 
-********************end of code********************don't copy this line ******************************
+-------------------------------end of code-------------------------------don't copy this line-------------------------------
 
 step 4: run launch.bat
 
