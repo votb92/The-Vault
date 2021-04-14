@@ -14,6 +14,8 @@ import static com.utilities.GenerateKey.*;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
+import com.mysql.cj.exceptions.CJCommunicationsException;
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 import com.mysql.cj.protocol.FullReadInputStream;
 
 public class DbCon {
@@ -32,7 +34,11 @@ public class DbCon {
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				con = DriverManager.getConnection(URL, USER, PASSWORD);
-			} catch (Exception e) {
+			} catch (CJCommunicationsException e) {
+				System.out.println("Please turn on/connect your mySQL server");
+			} catch (CommunicationsException e) {
+				System.out.println("Please turn on/connect your mySQL server");
+			}catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -108,6 +114,70 @@ public class DbCon {
 		} catch (IOException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
+		}
+	}
+	
+	public static boolean changeKey() throws SQLException, NoSuchAlgorithmException, IOException {
+		Properties prop = new Properties();
+		InputStream input = null;
+		String address = ADDRESS;
+		StringBuilder fullAddress = new StringBuilder();
+		boolean success = false;
+		for (int j = 65; j < 91; j++) {
+			if (!success) {
+				char drive = (char) j;
+				fullAddress = new StringBuilder();
+				fullAddress.append(drive);
+				fullAddress.append(address);
+				try {
+					input = new FileInputStream(fullAddress.toString());
+					break;
+				} catch (FileNotFoundException e) {
+				}
+			}
+		}
+		// load a properties file
+		try {
+			prop.load(input);
+		} catch (NullPointerException ex) {
+			System.out.println("Please Insert Key!!!");
+			System.exit(1);
+		} finally {
+			if (input != null) {
+				input.close();
+			}
+		}
+		URL = prop.getProperty("URL");
+		USER = prop.getProperty("USER");
+		PASSWORD = prop.getProperty("PASSWORD");
+		input.close();
+
+		String newKey;
+		KeyGenerator keyGen = KeyGenerator.getInstance(GenerateKey.AES);
+		keyGen.init(128);
+		SecretKey sk = keyGen.generateKey();
+		newKey = byteArrayToHexString(sk.getEncoded());
+
+		try {
+			File myObj = new File(fullAddress.toString());
+//			if (myObj.getParentFile().mkdir()) {
+//				myObj.createNewFile();
+//			} else {
+//				throw new IOException("Failed to create directory "
+//								+ myObj.getParent());
+//			}
+			FileWriter myWriter = new FileWriter(fullAddress.toString());
+			myWriter.write("Key=" + newKey + "\n");
+			myWriter.write("URL=" + URL+ "\n");
+			myWriter.write("USER=" + USER + "\n");
+			myWriter.write("PASSWORD=" + PASSWORD + "\n");
+			myWriter.close();
+			System.out.println("Successfully create the key.");
+			return true;
+		} catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+			return false;
 		}
 	}
 

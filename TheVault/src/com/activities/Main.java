@@ -8,6 +8,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -25,7 +26,7 @@ public class Main {
 	private static Scanner input = new Scanner(System.in);
 	private static AccountDao dao = new AccountDao();
 	private static Boolean On = true;
-
+	
 	public static void main(String[] args) throws InvalidKeyException,
 					NoSuchAlgorithmException, NoSuchPaddingException,
 					IllegalBlockSizeException, BadPaddingException,
@@ -47,7 +48,7 @@ public class Main {
 					NoSuchAlgorithmException, NoSuchPaddingException,
 					IllegalBlockSizeException, BadPaddingException,
 					FileNotFoundException, InvalidAlgorithmParameterException,
-					IOException, InterruptedException {
+					IOException, InterruptedException, SQLException {
 		int i = input.nextInt();
 		input.nextLine();
 		switch (i) {
@@ -119,6 +120,35 @@ public class Main {
 			Thread.sleep(5000);
 			clearConsole();
 			break;
+		case 6:
+			System.out.println("Are you sure? 1 - yes, 0 - no: ");
+			int tempChoice1 = input.nextInt();
+			input.nextLine();
+			if (tempChoice1 == 1) {
+				System.out.println("Please keep key insert!");
+				System.out.println("Changing your key...");
+				if(findKey() == true) {
+					ArrayList<Account> tempArr = dao.findAll();
+					if(DbCon.changeKey()) {
+						for(Account tmpaccount: tempArr) {
+							dao.update(tmpaccount);
+						}
+					}
+					else{
+						System.out.println("Something wrong please retry!");
+					}
+				}
+				else {
+					System.out.println("Can't find your key!");
+				}
+				
+
+			}
+			Thread.sleep(5000);
+			clearConsole();
+			break;
+			
+			
 		case 9:
 			printCollection(dao.findAll());
 			System.out.println("any number to get back to main menu : ");
@@ -145,7 +175,9 @@ public class Main {
 						"2 - Find account by id number",
 						"3 - Create an account",
 						"4 - Update an existing account password (using acount id number)",
-						"5 - Delete an account entry", "9 - Show all accounts",
+						"5 - Delete an account entry", 
+						"6 - Change key",
+						"9 - Show all accounts",
 						"0 - Quit" };
 		System.out.println(StringUtils.rightPad("+", w - 1, "-") + "+");
 		System.out.println(StringUtils
