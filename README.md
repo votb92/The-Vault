@@ -63,9 +63,9 @@ step 9 (optional): BACK UP YOUR DATABASE MONTHLY!
 # Update Log:
 
 v1.1
--added icon
--added executable file
--added change key at option 6
+- added icon
+- added executable file
+- added change key at option 6
 
 
 
