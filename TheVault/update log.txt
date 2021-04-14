@@ -1,7 +1,0 @@
-v1.1
--added icon
--added executable file
--added change key at option 6
-
-next update: 
-work without java installed
