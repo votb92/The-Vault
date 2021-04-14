@@ -3,7 +3,7 @@
 Author: Thinh B. Vo
 
 
-Version: 1.0
+Version: 1.1
 
 
 Date published: 03/26/2021
@@ -59,5 +59,14 @@ that was created in your usb-drive. DO NOT MOVE THE KEY!
 step 8: you will only be logged in with your usb (that holds the key) inserted, please eject your usb and store it somewhere safe when it is not used. 
 
 step 9 (optional): BACK UP YOUR DATABASE MONTHLY! 
+
+# Update Log:
+
+v1.1
+-added icon
+-added executable file
+-added change key at option 6
+
+
 
 
